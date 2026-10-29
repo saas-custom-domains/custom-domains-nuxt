@@ -9,7 +9,8 @@ type VerifyResponse = { dns_status: 'valid' | 'pending' | 'invalid' }
 function api() {
   const account = process.env.SCD_ACCOUNT_UUID
   const upstream = process.env.SCD_UPSTREAM_UUID
-  const base = process.env.SCD_API_URL ?? 'https://app.saascustomdomains.com'
+  const base =
+    process.env.SCD_API_URL ?? 'https://app.saascustomdomains.com'
   return ofetch.create({
     baseURL:
       `${base}/api/v1/accounts/${account}` +

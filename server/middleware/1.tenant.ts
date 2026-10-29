@@ -1,4 +1,8 @@
-import { defineEventHandler, getRequestHeader, setResponseStatus } from 'h3'
+import {
+  defineEventHandler,
+  getRequestHeader,
+  setResponseStatus,
+} from 'h3'
 import { isAppHost, normalizeHost } from '../utils/hosts'
 import { findShopByActiveHost } from '../utils/shops'
 import { hasValidProxyToken } from '../utils/tenant'
@@ -20,7 +24,9 @@ export default defineEventHandler((event) => {
   // Without X-Served-For, the Host header decides: your own domain, or
   // a customer's domain on a request this app makes to itself (useFetch
   // during server rendering, after the Host fix below).
-  const host = normalizeHost(servedFor ?? getRequestHeader(event, 'host') ?? '')
+  const host = normalizeHost(
+    servedFor ?? getRequestHeader(event, 'host') ?? '',
+  )
   if (isAppHost(host)) return
 
   const shop = findShopByActiveHost(host)

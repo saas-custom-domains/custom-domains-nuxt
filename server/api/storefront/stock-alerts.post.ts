@@ -6,16 +6,27 @@ import { requireShop } from '../../utils/tenant'
 // shop is simply not found.
 export default defineEventHandler(async (event) => {
   const shop = requireShop(event)
-  const body = await readBody<{ productId?: unknown; email?: unknown }>(event)
+  const body = await readBody<{
+    productId?: unknown
+    email?: unknown
+  }>(event)
   const email = String(body?.email ?? '').trim()
   const product = findProduct(shop.id, Number(body?.productId))
 
   if (!product) {
-    throw createError({ statusCode: 404, statusMessage: 'Unknown product' })
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Unknown product',
+    })
   }
   if (!/^\S+@\S+\.\S+$/.test(email)) {
-    throw createError({ statusCode: 400, statusMessage: 'Enter a valid email.' })
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Enter a valid email.',
+    })
   }
   addStockAlert(product.id, email)
-  return { message: `We'll email you when ${product.name} is back in stock.` }
+  return {
+    message: `We'll email you when ${product.name} is back in stock.`,
+  }
 })

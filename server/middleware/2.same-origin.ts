@@ -15,8 +15,9 @@ export default defineEventHandler((event) => {
   if (event.path.startsWith('/api/webhooks/')) return
 
   const origin = getRequestHeader(event, 'origin')
+  const originHost = normalizeHost(URL.parse(origin ?? '')?.host ?? '')
   const host = normalizeHost(getRequestHost(event))
-  if (!origin || normalizeHost(URL.parse(origin)?.host ?? '') !== host) {
+  if (!origin || originHost !== host) {
     throw createError({
       statusCode: 403,
       statusMessage: 'Cross-site request blocked',
