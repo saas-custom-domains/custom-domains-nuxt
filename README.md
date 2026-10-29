@@ -24,7 +24,7 @@ docker compose up --build
 ```
 
 1. Open http://localhost:3000 (it redirects to the dashboard) and add `fern.localhost` to Fern & Clay.
-2. Within a few seconds the status changes to **Live**: the mock API "found" the DNS records and sent a webhook.
+2. Reload after a few seconds and the status reads **Live**: the mock API "found" the DNS records and sent a webhook.
 3. Open http://fern.localhost. The request goes through the mock proxy on port 80, exactly like a real customer domain goes through SaaS Custom Domains, and you see the Fern & Clay storefront. Try "Notify me" on the sold-out mug.
 
 `*.localhost` always resolves to your own machine in Chrome, Firefox, Safari and curl, so there's nothing to add to `/etc/hosts`.
